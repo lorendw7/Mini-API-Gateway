@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        gateway-server: THE gateway application.
+
+        Phase 0: you start with a hand-written reactive reverse proxy on Spring WebFlux
+                 (no Spring Cloud Gateway yet) so you understand the mechanics.
+        Phase 1+: you refactor onto Spring Cloud Gateway and add your own filters
+                  (JWT auth, rate limiting, gray routing, tracing, metrics).
+
+        WebFlux is included now. spring-cloud-starter-gateway is commented out below;
+        uncomment it when you reach the "refactor onto Spring Cloud Gateway" step.
+    -->
+
+    <parent>
+        <groupId>com.learn.gateway</groupId>
+        <artifactId>mini-api-gateway</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>gateway-server</artifactId>
+    <name>gateway-server</name>
+    <description>The API gateway: reverse proxy, JWT auth, rate limiting, gray routing, observability.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.learn.gateway</groupId>
+            <artifactId>gateway-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Reactive web stack (Netty + WebFlux). Phase 0 hand-written proxy uses WebClient from here. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!--
+            Phase 1+: uncomment to refactor onto Spring Cloud Gateway.
+            (Note: spring-cloud-starter-gateway transitively brings WebFlux,
+             so once you enable this you may remove the explicit webflux starter above.)
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+            </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

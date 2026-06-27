@@ -1,0 +1,40 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+.mvn/timing.properties
+# Maven Wrapper: keep mvnw/mvnw.cmd and .mvn/wrapper/maven-wrapper.properties,
+# but the downloaded jar is ignored.
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local env / secrets (JWT keys, etc.)
+*.local
+*.env
+secrets/
+*.pem
+*.key
+
+# Build / runtime
+*.class
+hs_err_pid*

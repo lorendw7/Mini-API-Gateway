@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        gateway-common: a plain library JAR (NOT a Spring Boot application).
+        Shared types live here: trace context, common DTOs, error/response models,
+        and constants used by the gateway and the demo services.
+
+        Note there is NO spring-boot-maven-plugin here: this module is a library,
+        not an executable app, so it must NOT be repackaged into a fat jar.
+    -->
+
+    <parent>
+        <groupId>com.learn.gateway</groupId>
+        <artifactId>mini-api-gateway</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>gateway-common</artifactId>
+    <name>gateway-common</name>
+    <description>Shared types (trace context, DTOs, error models) used across modules.</description>
+
+    <dependencies>
+        <!--
+            Add dependencies here as you need them in later phases.
+            Suggested starting point (uncomment when you write your first shared type):
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+            </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

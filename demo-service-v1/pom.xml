@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        demo-service-v1: a tiny downstream backend (the "stable" version).
+        The gateway forwards traffic here. Uses blocking Spring MVC on purpose —
+        downstream services do NOT need to be reactive; only the gateway benefits.
+        It should expose an endpoint that reports which version answered (so you can
+        SEE gray routing working in Phase 4).
+    -->
+
+    <parent>
+        <groupId>com.learn.gateway</groupId>
+        <artifactId>mini-api-gateway</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>demo-service-v1</artifactId>
+    <name>demo-service-v1</name>
+    <description>Stable (v1) downstream backend behind the gateway.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

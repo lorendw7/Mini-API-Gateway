@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        Parent / aggregator POM for the Mini API Gateway learning project.
+
+        This POM does three jobs:
+          1. Aggregates the sub-modules (the <modules> list).
+          2. Centralizes dependency versions via <dependencyManagement> (BOM imports),
+             so child modules declare dependencies WITHOUT version numbers.
+          3. Pins the Java version and shared plugin configuration.
+
+        Learning note: a "parent POM" and an "aggregator POM" are technically two
+        different roles that here happen to live in the same file. Aggregation =
+        "build these modules together". Parenting = "inherit my config". A module
+        opts into inheritance via its own <parent> element.
+    -->
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.1</version>
+        <relativePath/> <!-- look the parent up from the Maven repository, not the filesystem -->
+    </parent>
+
+    <groupId>com.learn.gateway</groupId>
+    <artifactId>mini-api-gateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>mini-api-gateway</name>
+    <description>A production-grade API Gateway built from scratch for learning: JWT auth, rate limiting, gray routing, observability.</description>
+
+    <modules>
+        <module>gateway-common</module>
+        <module>gateway-server</module>
+        <module>demo-service-v1</module>
+        <module>demo-service-v2</module>
+        <!-- ratelimit-spring-boot-starter is added in Phase 7 -->
+    </modules>
+
+    <properties>
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Spring Cloud 2024.0.x (Moorgate) is the release train compatible with Spring Boot 3.4.x -->
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--
+                Import the Spring Cloud BOM. "Bill Of Materials" = a POM that only
+                declares versions. Importing it means our child modules can depend on
+                spring-cloud-starter-gateway etc. without specifying a version.
+            -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- spring-boot-maven-plugin is configured here so child app modules can use it without re-declaring config -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
